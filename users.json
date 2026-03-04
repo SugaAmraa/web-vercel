@@ -1,0 +1,24 @@
+[
+  {
+    "id": "admin",
+    "username": "admin",
+    "displayName": "Админ",
+    "email": "admin@jorkhon.mn",
+    "passwordHash": "YWRtaW4xMjM=",
+    "avatar": null,
+    "provider": "email",
+    "isAdmin": true,
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "user_1772657511213_0pffk3",
+    "username": "aimramraa",
+    "displayName": "suga",
+    "email": "amraa@gmail.com",
+    "passwordHash": "TU5hbWFyYWExMQ==",
+    "avatar": "https://api.dicebear.com/7.x/initials/svg?seed=suga",
+    "createdAt": "2026-03-04T20:51:51.213Z",
+    "provider": "email",
+    "isAdmin": false
+  }
+]

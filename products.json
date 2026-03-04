@@ -1,0 +1,224 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Chicken Breast",
+      "synonyms": [
+        "chicken",
+        "breast",
+        "meat"
+      ],
+      "category": "meat",
+      "price": 9800,
+      "image": "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "2",
+      "name": "Bacon",
+      "synonyms": [
+        "pork",
+        "belly",
+        "meat",
+        "bacon"
+      ],
+      "category": "meat",
+      "price": 12500,
+      "image": "https://images.unsplash.com/photo-1606851091851-e8c8c0fca5ba?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "3",
+      "name": "Carrot",
+      "synonyms": [
+        "carrot",
+        "carrots",
+        "vegetable",
+        "veg"
+      ],
+      "category": "vegetable",
+      "price": 1200,
+      "image": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "4",
+      "name": "Onion",
+      "synonyms": [
+        "onion",
+        "onions",
+        "red onion",
+        "vegetable"
+      ],
+      "category": "vegetable",
+      "price": 900,
+      "image": "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "5",
+      "name": "Soy Sauce",
+      "synonyms": [
+        "soy sauce",
+        "soy",
+        "sauce",
+        "seasoning"
+      ],
+      "category": "sauce",
+      "price": 3500,
+      "image": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "6",
+      "name": "Cooking Oil",
+      "synonyms": [
+        "oil",
+        "cooking oil",
+        "vegetable oil",
+        "fat"
+      ],
+      "category": "oil",
+      "price": 6800,
+      "image": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "7",
+      "name": "Eggs",
+      "synonyms": [
+        "egg",
+        "eggs"
+      ],
+      "category": "dairy",
+      "price": 6500,
+      "image": "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "8",
+      "name": "Rice",
+      "synonyms": [
+        "rice",
+        "grain"
+      ],
+      "category": "grain",
+      "price": 4200,
+      "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "9",
+      "name": "Garlic",
+      "synonyms": [
+        "garlic",
+        "cloves",
+        "vegetable"
+      ],
+      "category": "vegetable",
+      "price": 1500,
+      "image": "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "10",
+      "name": "Milk (1L)",
+      "synonyms": [
+        "milk",
+        "dairy"
+      ],
+      "category": "dairy",
+      "price": 4000,
+      "image": "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "11",
+      "name": "Beef (500g)",
+      "synonyms": [
+        "beef",
+        "steak",
+        "meat",
+        "ground beef"
+      ],
+      "category": "meat",
+      "price": 18000,
+      "image": "https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "12",
+      "name": "Pasta",
+      "synonyms": [
+        "pasta",
+        "spaghetti",
+        "noodles",
+        "grain"
+      ],
+      "category": "grain",
+      "price": 3200,
+      "image": "https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "13",
+      "name": "Tomato",
+      "synonyms": [
+        "tomato",
+        "tomatoes",
+        "vegetable"
+      ],
+      "category": "vegetable",
+      "price": 1800,
+      "image": "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "14",
+      "name": "Butter (200g)",
+      "synonyms": [
+        "butter",
+        "dairy",
+        "fat"
+      ],
+      "category": "dairy",
+      "price": 5500,
+      "image": "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "15",
+      "name": "Potato",
+      "synonyms": [
+        "potato",
+        "potatoes",
+        "vegetable"
+      ],
+      "category": "vegetable",
+      "price": 1100,
+      "image": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "16",
+      "name": "Salt",
+      "synonyms": [
+        "salt",
+        "seasoning"
+      ],
+      "category": "seasoning",
+      "price": 800,
+      "image": "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "17",
+      "name": "Black Pepper",
+      "synonyms": [
+        "pepper",
+        "black pepper",
+        "seasoning"
+      ],
+      "category": "seasoning",
+      "price": 2200,
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+    },
+    {
+      "id": "18",
+      "name": "Fresh Herbs (Parsley)",
+      "synonyms": [
+        "herbs",
+        "parsley",
+        "fresh herbs",
+        "garnish"
+      ],
+      "category": "vegetable",
+      "price": 1600,
+      "image": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop"
+    }
+  ]
+}
