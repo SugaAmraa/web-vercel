@@ -1,4 +1,5 @@
 import './grocery-product.js';
+import { getProducts, addProduct } from './supabase.js';
 
 export class PageGrocery extends HTMLElement {
     constructor() {
@@ -145,7 +146,7 @@ export class PageGrocery extends HTMLElement {
                 products = await res.json();
             } catch {
                 // Server байхгүй — products.json-ийг шууд уншина
-                const res = await fetch('./src/data/products.json');
+                const res = await fetch('/src/data/products.json');
                 if (!res.ok) throw new Error('no json');
                 products = await res.json();
             }
@@ -170,20 +171,20 @@ export class PageGrocery extends HTMLElement {
         if (!name || !price) { alert('Нэр болон үнийг оруулна уу.'); return; }
 
         const newProduct = {
-            id: `local-${Date.now()}`,
+            id: `p_${Date.now()}`,
             name, price, category,
-            synonyms: [name.toLowerCase()],
+            synonyms: JSON.stringify([name.toLowerCase()]),
             image: image || 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop'
         };
 
         try {
-            await fetch('http://localhost:3000/products', {
-                method:'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify(newProduct)
-            });
-        } catch { /* server байхгүй бол зөвхөн локал нэмнэ */ }
+            const saved = await addProduct(newProduct);
+            this.allProducts.push(saved);
+        } catch(e) {
+            alert('Бүтээгдэхүүн нэмж чадсангүй: ' + (e.message || 'Supabase алдаа'));
+            return;
+        }
 
-        this.allProducts.push(newProduct);
         this.querySelector('#new-name').value = '';
         this.querySelector('#new-price').value = '';
         this.querySelector('#new-image').value = '';

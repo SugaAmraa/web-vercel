@@ -1,4 +1,4 @@
-const USERS_API = 'http://localhost:3001';
+import { getUsers, getUserByEmail, getUserByUsername, createUser } from './supabase.js';
 
 export class PageLogin extends HTMLElement {
     constructor() {
@@ -118,44 +118,9 @@ export class PageLogin extends HTMLElement {
         }
     }
 
-    // ── API helpers ──────────────────────────────────────────
-    async getUsers() {
-        try {
-            const res = await fetch(`${USERS_API}/users`);
-            return await res.json();
-        } catch {
-            // Server байхгүй бол localStorage-аас унших
-            return JSON.parse(localStorage.getItem('fp_users') || '[]');
-        }
-    }
-
-    async saveUser(user) {
-        try {
-            // users.json-д шинэ хэрэглэгч POST хийнэ
-            const res = await fetch(`${USERS_API}/users`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            });
-            return await res.json();
-        } catch {
-            // Fallback: localStorage-д хадгална
-            const users = JSON.parse(localStorage.getItem('fp_users') || '[]');
-            users.push(user);
-            localStorage.setItem('fp_users', JSON.stringify(users));
-            return user;
-        }
-    }
-
-    async updateUser(id, data) {
-        try {
-            await fetch(`${USERS_API}/users/${id}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        } catch { /* silent */ }
-    }
+    // ── Supabase helpers ─────────────────────────────────────
+    async getUsers()               { return await getUsers(); }
+    async saveUser(user)           { return await createUser(user); }
     // ─────────────────────────────────────────────────────────
 
     checkUsername(username, statusSel) {
@@ -166,7 +131,7 @@ export class PageLogin extends HTMLElement {
         if (!/^[a-zA-Z0-9_]+$/.test(username)) { el.textContent='⚠️ Зөвхөн үсэг, тоо, _ зөвшөөрнө'; el.style.color='orange'; return false; }
         // Async давхцал шалгалт
         el.textContent='⏳ Шалгаж байна...'; el.style.color='gray';
-        this.getUsers().then(users => {
+        this._getUsers().then(users => {
             const taken = users.some(u => u.username?.toLowerCase() === username.toLowerCase());
             if (taken) { el.textContent='✗ Энэ нэр аль хэдийн ашиглагдаж байна'; el.style.color='red'; }
             else { el.textContent='✓ Боломжтой'; el.style.color='green'; }
@@ -187,7 +152,7 @@ export class PageLogin extends HTMLElement {
         if (username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) return showErr('Хэрэглэгчийн нэр буруу байна.');
         if (password.length < 6) return showErr('Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой.');
 
-        const users = await this.getUsers();
+        const users = await this._getUsers();
         if (users.some(u => u.username?.toLowerCase() === username.toLowerCase())) return showErr('Энэ хэрэглэгчийн нэр аль хэдийн бүртгэлтэй.');
         if (users.some(u => u.email?.toLowerCase() === email.toLowerCase())) return showErr('Энэ и-мэйл аль хэдийн бүртгэлтэй.');
 
@@ -203,7 +168,7 @@ export class PageLogin extends HTMLElement {
             isAdmin: false
         };
 
-        await this.saveUser(newUser);
+        await this._saveUser(newUser);
         this.loginSession(newUser);
     }
 
@@ -216,12 +181,16 @@ export class PageLogin extends HTMLElement {
 
         if (!email||!password) return showErr('И-мэйл болон нууц үгээ оруулна уу.');
 
-        const users = await this.getUsers();
-        const hash = btoa(unescape(encodeURIComponent(password)));
-        const user = users.find(u => u.email?.toLowerCase()===email.toLowerCase() && u.passwordHash===hash);
-
-        if (!user) return showErr('И-мэйл эсвэл нууц үг буруу байна.');
-        this.loginSession(user);
+        const passwordHash = btoa(unescape(encodeURIComponent(password)));
+        try {
+            // Supabase-аас и-мэйлээр хайх
+            const user = await getUserByEmail(email);
+            if (!user || user.password_hash !== passwordHash)
+                return showErr('И-мэйл эсвэл нууц үг буруу байна.');
+            this.loginSession(user);
+        } catch {
+            return showErr('Холболтын алдаа гарлаа. Дахин оролдоно уу.');
+        }
     }
 
     // ── Google OAuth ──────────────────────────────────────────
@@ -260,7 +229,7 @@ export class PageLogin extends HTMLElement {
     }
 
     async _processGoogleUser(googleUser) {
-        const users = await this.getUsers();
+        const users = await this._getUsers();
         const existing = users.find(u => u.email===googleUser.email && u.provider==='google');
         if (existing) {
             this.loginSession(existing);
@@ -292,7 +261,7 @@ export class PageLogin extends HTMLElement {
             if (username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) {
                 errEl.textContent='Хэрэглэгчийн нэрийг шалгана уу.'; errEl.style.display='block'; return;
             }
-            const users = await this.getUsers();
+            const users = await this._getUsers();
             if (users.some(u => u.username?.toLowerCase()===username.toLowerCase())) {
                 errEl.textContent='Энэ нэр аль хэдийн ашиглагдаж байна.'; errEl.style.display='block'; return;
             }
@@ -311,7 +280,7 @@ export class PageLogin extends HTMLElement {
                 provider: 'google',
                 isAdmin: false
             };
-            await this.saveUser(newUser);
+            await this._saveUser(newUser);
             this.loginSession(newUser);
         });
     }
